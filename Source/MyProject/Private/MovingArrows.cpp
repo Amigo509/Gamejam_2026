@@ -1,4 +1,7 @@
 #include "MovingArrows.h"
+#include "Kismet/GameplayStatics.h"
+#include "Engine/World.h"
+#include "DrawDebugHelpers.h"
 
 AMovingArrows::AMovingArrows()
 {
@@ -21,6 +24,8 @@ void AMovingArrows::BeginPlay()
 	CurrentSeconds = 0.f;
 	CurrentMinutes = 0.f;
 
+    PlayerController = UGameplayStatics::GetPlayerController(this, 0);
+
     if (!ensure(MinuteArrow))
     {
         return;
@@ -37,6 +42,11 @@ void AMovingArrows::BeginPlay()
 void AMovingArrows::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+    if (IsPlayerLookingAtClock())
+    {
+        return;
+    }
 
     ElapsedTime += DeltaTime;
 
@@ -73,4 +83,41 @@ void AMovingArrows::Tick(float DeltaTime)
     SecondArrow->SetRelativeRotation(InitialSecondRotation + FRotator(SecondAngle, 0.f, 0.f));
 
     MinuteArrow->SetRelativeRotation(InitialMinuteRotation + FRotator(MinuteAngle, 0.f, 0.f));
+}
+
+bool AMovingArrows::IsPlayerLookingAtClock() const
+{
+    if (!ensure(PlayerController))
+    {
+        return false;
+    }
+
+    FVector CameraLocation;
+    FRotator CameraRotation;
+    PlayerController->GetPlayerViewPoint(CameraLocation, CameraRotation);
+
+    const FVector ToClock = (GetActorLocation() - CameraLocation).GetSafeNormal();
+
+    const float Dot = FVector::DotProduct(CameraRotation.Vector(), ToClock);
+
+    if (Dot < LookDotThreshold)
+    {
+        return false;
+    }
+
+    FHitResult Hit;
+
+    FCollisionQueryParams Params;
+    Params.AddIgnoredActor(PlayerController->GetPawn());
+
+    const bool bHit = GetWorld()->LineTraceSingleByChannel(Hit, CameraLocation, GetActorLocation(), ECC_Visibility, Params);
+
+    //DrawDebugLine(GetWorld(),CameraLocation,GetActorLocation(), bHit ? FColor::Green : FColor::Red, false, 0.0f, 0, 0.5f);
+
+    if (!bHit)
+    {
+        return false;
+    }
+
+    return Hit.GetActor() == this;
 }

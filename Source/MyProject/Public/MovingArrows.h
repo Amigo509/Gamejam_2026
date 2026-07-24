@@ -27,6 +27,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Clock")
 	float StopAfter = 60.f;
 
+	UPROPERTY(EditAnywhere, Category = "Clock")
+	float LookDotThreshold = 0.96f;
+
 
 private:
 	float CurrentSeconds = 0.f;
@@ -37,4 +40,11 @@ private:
 
 	float ElapsedTime = 0.f;
 	bool bClockStopped = false;
+
+	UPROPERTY()
+	TObjectPtr<APlayerController> PlayerController = nullptr;
+
+
+private:
+	bool IsPlayerLookingAtClock() const;
 };
