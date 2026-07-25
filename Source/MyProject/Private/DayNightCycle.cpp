@@ -33,16 +33,4 @@ void ADayNightCycle::Tick(float DeltaTime)
 
         MoonLight->SetActorRotation(MoonRotation);
     }
-
-    /*const float SunHeight = SunLight->GetActorForwardVector().Z;
-
-    const float SunIntensity = FMath::Max(0.f, SunHeight) * MaxSunIntensity;
-    SunLight->GetLightComponent()->SetIntensity(SunIntensity);
-
-    if (MoonLight)
-    {
-        const float MoonIntensity = FMath::Max(0.f, -SunHeight) * MaxMoonIntensity;
-        MoonLight->GetLightComponent()->SetIntensity(MoonIntensity);
-    }*/
 }
-

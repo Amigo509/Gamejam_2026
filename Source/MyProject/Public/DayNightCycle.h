@@ -27,14 +27,6 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Day/Night")
 	float DayLength = 60.f;
 
-	UPROPERTY(EditAnywhere, Category = "Day/Night")
-	float MaxSunIntensity = 10.f;
-
-	UPROPERTY(EditAnywhere, Category = "Day/Night")
-	float MaxMoonIntensity = 1.f;
-
 private:
 	float CurrentTime = 0.f;
-
-
 };
