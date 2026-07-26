@@ -5,24 +5,24 @@
 
 AMovingArrows::AMovingArrows()
 {
-	PrimaryActorTick.bCanEverTick = true;
+    PrimaryActorTick.bCanEverTick = true;
 
-	RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+    RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
 
-	MinuteArrow = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MinuteHand"));
-	MinuteArrow->SetupAttachment(RootComponent);
+    MinuteArrow = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MinuteHand"));
+    MinuteArrow->SetupAttachment(RootComponent);
 
-	SecondArrow = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SecondHand"));
-	SecondArrow->SetupAttachment(RootComponent);
+    SecondArrow = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("SecondHand"));
+    SecondArrow->SetupAttachment(RootComponent);
 
 }
 
 void AMovingArrows::BeginPlay()
 {
-	Super::BeginPlay();
-	
-	CurrentSeconds = 0.f;
-	CurrentMinutes = 0.f;
+    Super::BeginPlay();
+
+    CurrentSeconds = 0.f;
+    CurrentMinutes = 0.f;
 
     PlayerController = UGameplayStatics::GetPlayerController(this, 0);
 
@@ -41,7 +41,7 @@ void AMovingArrows::BeginPlay()
 
 void AMovingArrows::Tick(float DeltaTime)
 {
-	Super::Tick(DeltaTime);
+    Super::Tick(DeltaTime);
 
     if (IsPlayerLookingAtClock())
     {
@@ -52,9 +52,10 @@ void AMovingArrows::Tick(float DeltaTime)
 
     if (ElapsedTime >= StopAfter)
     {
+        bTimeExpired = true;
         bClockStopped = true;
 
-        SetActorTickEnabled(false);
+        //SetActorTickEnabled(false);
 
         return;
     }
