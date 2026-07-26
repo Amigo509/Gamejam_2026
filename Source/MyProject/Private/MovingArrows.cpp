@@ -52,9 +52,10 @@ void AMovingArrows::Tick(float DeltaTime)
 
     if (ElapsedTime >= StopAfter)
     {
+        bTimeExpired = true;
         bClockStopped = true;
 
-        SetActorTickEnabled(false);
+        //SetActorTickEnabled(false);
 
         return;
     }

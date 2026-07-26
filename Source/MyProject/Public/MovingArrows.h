@@ -33,6 +33,9 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Clock")
 	float LookDotThreshold = 0.96f;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Clock")
+	bool bTimeExpired = false;
+
 
 private:
 	float CurrentSeconds = 0.f;
