@@ -6,6 +6,15 @@ UpgradeLog*.htm
 # Intellij Idea
 .idea
 
+/.git
+/.vscode
+/DerivedDataCache
+/Intermediate
+/Saved
+
+.ignore
+MyProject.code-workspace
+
 #Resharper
 *.DotSettings.user
 
