@@ -18,6 +18,9 @@ protected:
 public:	
 	virtual void Tick(float DeltaTime) override;
 
+	UFUNCTION(BlueprintPure, Category = "Clock")
+	float GetElapsedClockTime() const { return ElapsedTime; }
+
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Clock")
 	TObjectPtr<UStaticMeshComponent> MinuteArrow;
 

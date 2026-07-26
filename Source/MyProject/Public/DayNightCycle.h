@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "MovingArrows.h"
 #include "DayNightCycle.generated.h"
 
 class ADirectionalLight;
@@ -27,6 +28,6 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Day/Night")
 	float DayLength = 60.f;
 
-private:
-	float CurrentTime = 0.f;
+	UPROPERTY(EditAnywhere, Category = "Day/Night")
+	TObjectPtr<AMovingArrows> ClockActor;
 };

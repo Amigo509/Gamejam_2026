@@ -4,23 +4,23 @@
 
 ADayNightCycle::ADayNightCycle()
 {
-	PrimaryActorTick.bCanEverTick = true;
+    PrimaryActorTick.bCanEverTick = true;
 }
 
 void ADayNightCycle::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 
-    if (!SunLight)
+    if (!SunLight || !ClockActor)
     {
         return;
     }
 
-    CurrentTime += DeltaTime;
+    const float ClockTime = ClockActor->GetElapsedClockTime();
 
-    const float Alpha = FMath::Fmod(CurrentTime / DayLength, 1.f);
+    const float Alpha = FMath::Clamp(ClockTime / DayLength, 0.f, 1.f);
 
-    const float SunPitch = Alpha * 360.f - 90.f;
+    const float SunPitch = Alpha * 180.f - 90.f;
 
     FRotator SunRotation = SunLight->GetActorRotation();
     SunRotation.Pitch = SunPitch;
