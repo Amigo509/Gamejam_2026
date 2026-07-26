@@ -8,14 +8,14 @@ UCLASS()
 class MYPROJECT_API AMovingArrows : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	AMovingArrows();
 
 protected:
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	virtual void Tick(float DeltaTime) override;
 
 	UFUNCTION(BlueprintPure, Category = "Clock")
@@ -32,6 +32,9 @@ public:
 
 	UPROPERTY(EditAnywhere, Category = "Clock")
 	float LookDotThreshold = 0.96f;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Clock")
+	bool bTimeExpired = false;
 
 
 private:
